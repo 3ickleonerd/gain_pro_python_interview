@@ -42,18 +42,33 @@ An end-user sends a GET request to the FastAPI endpoint, providing a company_id.
 
 ## Install/Run
 
-TBD
+Prerequisites:
+- Docker installed.
+- Patience!
+
+Steps of getting this to run:
+- Clone this repo then copy `.env.sample` to `.env` and change the values as you wish.
+- Run `docker compose up` which runs "elasticsearch" and "fastapi" containers.
+- Wait until you see "Application is now ready to receive requests." logged to console. Now, the API is up but not much useful, because indexing task is still running in the background. Visit http://127.0.0.1:8000/v1/status and look for "index_total" which shows how many companies are indexed so far. You can start using the API as soon as "index_total" > 0, but wait until it's 24473 to get the best results.
+- Visit http://127.0.0.1:8000/docs for more info on API endpoints.
 
 ## Online Instance
 
-TBD
+Creating embedding vectors and indexing data takes some time. If you want to access a running instance right away, you can visit http://gain.servehttp.com/docs
 
 ## Results
 
-TBD
+Three similarity approaches have been implemented for the sake of diversity.
 
-## Future
+- No-semantic TF-IDF similarity has ~20% overlap with the ground truth.
+- Sparse semantic similarity has ~25% overlap with the ground truth.
+- Dense vector similarity has ~30% overlap with the ground truth. 
 
-a mechanism for index updates
+Run `pytest` to run the overlap test for yourself.
 
-Query Enhancement for Diversity: To ensure the diversity requirement is met, the initial search results are filtered and re-scored based on additional criteria. This might involve applying filters to exclude companies from the exact same sub-industry or boosting companies with specific, desired attributes. This ensures the results are not repetitive.
+## For Future
+
+- A mechanism for easy index updates when new data arrives
+- Applying filters to include/exclude companies with specificed attributes
+- Documentation
+- 

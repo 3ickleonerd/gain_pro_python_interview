@@ -173,7 +173,7 @@ async def get_overlap_percentage(async_client, method) -> float:
     overlap_count = 0
     async for ground_truth in yield_ground_truth('data/ground_truth.json'):
         json_gt = json.loads(ground_truth)
-        response = await async_client.get(f'/v1/{method}/{json_gt['id']}')
+        response = await async_client.get(f'/v1/{method}/{json_gt['id']}?size=100')
         company_ids_list = get_company_ids_list_from_response(json.loads(response.text))
         count += len(json_gt['similar_companies'])
         overlap_count += sum(1 for x in company_ids_list if x in json_gt['similar_companies'])

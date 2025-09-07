@@ -30,7 +30,7 @@ services:
       test: ["CMD-SHELL", "curl --silent --fail -k --cacert /usr/share/elasticsearch/config/certs/auth_ca.crt -u elastic:${ELASTIC_PASSWORD} https://localhost:9200/_cluster/health || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 100
+      retries: 20
 
   fastapi:
     build: .
@@ -39,9 +39,9 @@ services:
       elasticsearch:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      - ELASTIC_HOST=https://elasticsearch:9200
+      - ELASTIC_HOST=${ELASTIC_HOST}
     networks:
       - elastic
 

@@ -16,18 +16,16 @@ async def test_service_is_up(async_client):
     assert response.status_code == 200
 
 @pytest.mark.asyncio
-@pytest.mark.skip
 async def test_tf_idf_against_ground_truth(async_client):
     hit_percent = await helper.get_overlap_percentage(async_client, 'tf_idf_similarity')
-    assert hit_percent > 5
+    assert hit_percent > 20
 
 @pytest.mark.asyncio
-@pytest.mark.skip
 async def test_semantic_against_ground_truth(async_client):
     hit_percent = await helper.get_overlap_percentage(async_client, 'semantic_similarity')
-    assert hit_percent > 1
+    assert hit_percent > 24
 
 @pytest.mark.asyncio
 async def test_dense_vector_against_ground_truth(async_client):
     hit_percent = await helper.get_overlap_percentage(async_client, 'dense_vector_similarity')
-    assert hit_percent > 5
+    assert hit_percent > 29

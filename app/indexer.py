@@ -136,5 +136,6 @@ def index_if_needed():
             logger.info(f'vectorizing company_id: {c}. This is the #{counter} company vectorized so far.')
 
     logger.warning('indexing... it might take hours!')
+    logger.warning('Visit /v1/status to check the progress.')
     r = helpers.bulk(client, (c for c in companies.values()))
     logger.warning('indexing done!')
