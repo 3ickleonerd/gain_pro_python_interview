@@ -19,7 +19,8 @@ class AsyncSearcher():
             str(es_host),
             ca_certs=str(crt_path),
             basic_auth=("elastic", str(es_pass)),
-            request_timeout=600
+            request_timeout=600,
+            verify_certs=False
         )
         self.index_name = index_name
 

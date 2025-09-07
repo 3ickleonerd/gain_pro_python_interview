@@ -18,9 +18,9 @@ services:
       - xpack.license.self_generated.type=trial
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
-      - ./http_ca.key:/usr/share/elasticsearch/config/certs/http_ca.key
-      - ./http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
-      - ./auth_ca.crt:/usr/share/elasticsearch/config/certs/auth_ca.crt
+      - ./certs/http_ca.key:/usr/share/elasticsearch/config/certs/http_ca.key
+      - ./certs/http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
+      - ./certs/auth_ca.crt:/usr/share/elasticsearch/config/certs/auth_ca.crt
     ports:
       - "127.0.0.1:9200:9200"
       - "127.0.0.1:9300:9300"
@@ -39,7 +39,7 @@ services:
       elasticsearch:
         condition: service_healthy
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     environment:
       - ELASTIC_HOST=https://elasticsearch:9200
     networks:

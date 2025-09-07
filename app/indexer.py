@@ -25,7 +25,8 @@ def index_if_needed():
         str(es_host),
         ca_certs=str(crt_path),
         basic_auth=("elastic", str(es_pass)),
-        request_timeout=600
+        request_timeout=600,
+        verify_certs=False
     )
 
     if client.indices.exists(index=str(es_index)):
