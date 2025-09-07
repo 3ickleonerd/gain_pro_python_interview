@@ -17,8 +17,8 @@ services:
       - ./http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
       - ./auth_ca.crt:/usr/share/elasticsearch/config/certs/auth_ca.crt
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
     networks:
       - elastic
     healthcheck:
@@ -34,9 +34,9 @@ services:
       elasticsearch:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      - ELASTIC_HOST=elasticsearch:9200
+      - ELASTIC_HOST=https://elasticsearch:9200
 
 networks:
   elastic:
