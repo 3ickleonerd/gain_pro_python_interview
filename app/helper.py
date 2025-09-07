@@ -6,6 +6,7 @@ import logging
 
 logger = logging.getLogger("uvicorn.error")
 if not logger.hasHandlers():
+    logging.basicConfig(level=logging.INFO, format='    %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
 
 def aggregate_attributes_by_id(file_path: str) -> dict:

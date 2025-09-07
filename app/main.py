@@ -13,6 +13,7 @@ es_index = str(os.getenv("ELASTIC_INDEX"))
 
 logger = logging.getLogger("uvicorn.error")
 if not logger.hasHandlers():
+    logging.basicConfig(level=logging.INFO, format='    %(levelname)s %(message)s')
     logger = logging.getLogger(__name__)
 
 async def get_searcher() -> AsyncGenerator[AsyncSearchService, None]:
