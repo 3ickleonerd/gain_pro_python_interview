@@ -4,16 +4,10 @@ services:
     container_name: elasticsearch
     environment:
       - xpack.security.enabled=true
-      - xpack.security.http.ssl.enabled=true
-      - xpack.security.transport.ssl.enabled=true
-      - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/certs/transport.p12
-      - xpack.security.transport.ssl.keystore.password=${ELASTIC_PASSWORD}
       - xpack.license.self_generated.type=trial
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
       - ./http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
-      - ./transport.p12:/usr/share/elasticsearch/config/certs/transport.p12
     ports:
       - "9200:9200"
       - "9300:9300"
