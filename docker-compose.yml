@@ -4,6 +4,7 @@ services:
     container_name: elasticsearch
     environment:
       - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
       - xpack.security.transport.ssl.enabled=true
       - xpack.security.transport.ssl.verification_mode=certificate
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certs/http_ca.key
