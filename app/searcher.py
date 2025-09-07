@@ -24,7 +24,11 @@ class AsyncSearcher():
 
     async def status(self):
         # return await self.client.indices.get(index=self.index_name)
-        return await self.client.indices.stats(index=self.index_name)
+        try:
+            return await self.client.indices.stats(index=self.index_name)
+        except Exception as e:
+            logger.error(f"An error occurred: {e}")
+            return {"message": "please wait for the index to be ready"}
 
     async def search_index(self, query: dict, size: int = 10, from_: int = 0, fields: list|None = None):
         """

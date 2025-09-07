@@ -27,7 +27,7 @@ def index_if_needed():
         request_timeout=600
     )
 
-    if client.indices.exists(index=str(es_index), ignore_unavailable=True):
+    if client.indices.exists(index=str(es_index)):
         # client.indices.delete(index=str(es_index), ignore_unavailable=True)
         return
 
