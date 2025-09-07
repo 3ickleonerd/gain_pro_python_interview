@@ -42,6 +42,10 @@ def read_root():
     # TODO check if index is good in /status
     return {"message": "API is working! Head to /docs for more info."}
 
+@app.get("/status")
+async def status(searcher: AsyncSearchService = Depends(get_searcher)):
+    return await searcher.status()
+
 @app.get("/tf_idf_similarity/{company_id}")
 async def tf_idf_similarity(company_id: int,
                             size: int = 10, 

@@ -22,6 +22,10 @@ class AsyncSearcher():
         )
         self.index_name = index_name
 
+    async def status(self):
+        # return await self.client.indices.get(index=self.index_name)
+        return await self.client.indices.stats(index=self.index_name)
+
     async def search_index(self, query: dict, size: int = 10, from_: int = 0, fields: list|None = None):
         """
         Searches a given index with a specified query asynchronously.

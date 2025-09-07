@@ -9,7 +9,7 @@ services:
       - xpack.license.self_generated.type=trial
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
-      - ../http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
+      - ./http_ca.crt:/usr/share/elasticsearch/config/certs/http_ca.crt
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -31,9 +31,6 @@ services:
       - "8000:8000"
     environment:
       - ELASTIC_HOST="elasticsearch:9200"
-
-volumes:
-  esdata:
 
 networks:
   elastic:

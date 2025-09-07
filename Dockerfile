@@ -10,18 +10,11 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entrypoint script and make it executable
-COPY ./entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-
-# Copy the application code
-COPY ./app /app
-
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Set the entrypoint to our new script
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["fastapi", "run"]
 
 # Command to run the application (will be overridden by docker-compose)
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["--host", "0.0.0.0", "--port", "8000"]
