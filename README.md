@@ -70,4 +70,5 @@ Run `pytest` to run the overlap test for yourself.
 
 - A mechanism for easy index updates when new data arrives
 - Applying filters to include/exclude companies with specificed attributes
+- Mixing and re-ranking recommendations from different algorithms
 - Some documentation for more clarity
