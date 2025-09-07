@@ -23,7 +23,7 @@ def index_if_needed():
 
     client = Elasticsearch(
         str(es_host),
-        ca_certs=str(crt_path),
+        # ca_certs=str(crt_path),
         basic_auth=("elastic", str(es_pass)),
         request_timeout=600,
         verify_certs=False

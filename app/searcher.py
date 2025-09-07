@@ -17,7 +17,7 @@ class AsyncSearcher():
         crt_path = os.getenv("CERT_PATH")
         self.client = AsyncElasticsearch(
             str(es_host),
-            ca_certs=str(crt_path),
+            # ca_certs=str(crt_path),
             basic_auth=("elastic", str(es_pass)),
             request_timeout=600,
             verify_certs=False
