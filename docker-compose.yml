@@ -9,7 +9,7 @@ services:
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certs/http_ca.key
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certs/http_ca.crt
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certs/auth_ca.crt
-      - discovery-type=single-node
+      - discovery.type=single-node
       - xpack.license.self_generated.type=trial
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     volumes:
