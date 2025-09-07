@@ -16,10 +16,10 @@ services:
     networks:
       - elastic
     healthcheck:
-      - test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
-      - interval: 10s
-      - timeout: 5s
-      - retries: 100
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 100
 
   fastapi:
     build: .
