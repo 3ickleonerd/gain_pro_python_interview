@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
+from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 from typing import AsyncGenerator
 from app.searcher import AsyncSearchService
 from dotenv import load_dotenv
@@ -40,30 +41,65 @@ app = FastAPI(root_path='/v1', lifespan=lifespan)
 
 @app.get("/")
 def read_root():
-    # TODO check if index is good in /status
     return {"message": "API is working! Head to /docs for more info."}
 
 @app.get("/status")
 async def status(searcher: AsyncSearchService = Depends(get_searcher)):
-    return await searcher.status()
+    try:
+        return await searcher.status()
+    except HTTPException as http_e:
+        raise http_e
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected server error occurred."
+        )
 
 @app.get("/tf_idf_similarity/{company_id}")
 async def tf_idf_similarity(company_id: int,
                             size: int = 10, 
                             page: int = 1, 
                             searcher: AsyncSearchService = Depends(get_searcher)):
-    return await searcher.tf_idf_similarity(company_id, size, page)
+    try:
+        return await searcher.tf_idf_similarity(company_id, size, page)
+    except HTTPException as http_e:
+        raise http_e
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected server error occurred."
+        )
 
 @app.get("/semantic_similarity/{company_id}")
 async def semantic_similarity(company_id: int, 
                               size: int = 10, 
                               page: int = 1,
                               searcher: AsyncSearchService = Depends(get_searcher)):
-    return await searcher.semantic_similarity(company_id, size, page)
+    try:
+        return await searcher.semantic_similarity(company_id, size, page)
+    except HTTPException as http_e:
+        raise http_e
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected server error occurred."
+        )
 
 @app.get("/dense_vector_similarity/{company_id}")
 async def dense_vector_similarity(company_id: int, 
                                   size: int = 10, 
                                   page: int = 1,
                                   searcher: AsyncSearchService = Depends(get_searcher)):
-    return await searcher.dense_vector_similarity(company_id, size, page)
+    try:
+        return await searcher.dense_vector_similarity(company_id, size, page)
+    except HTTPException as http_e:
+        raise http_e
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(
+            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected server error occurred."
+        )

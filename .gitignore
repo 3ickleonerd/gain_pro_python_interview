@@ -5,3 +5,4 @@ test/__pycache__
 .venv
 .private
 .pytest_cache
+.idea

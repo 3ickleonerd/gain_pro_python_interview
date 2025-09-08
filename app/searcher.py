@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+from starlette.status import HTTP_404_NOT_FOUND
 from elasticsearch import AsyncElasticsearch
 from dotenv import load_dotenv
 import os
@@ -74,7 +76,13 @@ class AsyncSearchService(AsyncSearcher):
             }
         }
         match_result = await super().search_index(match_query)
-        match_id = match_result['hits']['hits'][0]['_id']
+        try:
+            match_id = match_result['hits']['hits'][0]['_id']
+        except Exception as e:
+            raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Company not found"
+        )
         mlt_query = {
             "more_like_this": {
                 "fields": ["industries", "specialities", "description"],
@@ -100,8 +108,14 @@ class AsyncSearchService(AsyncSearcher):
             }
         }
         match_result = await super().search_index(match_query)
-        full_description = match_result['hits']['hits'][0]['_source']['full_description']
-        industries = match_result['hits']['hits'][0]['_source']['industries']
+        try:
+            full_description = match_result['hits']['hits'][0]['_source']['full_description']
+            industries = match_result['hits']['hits'][0]['_source']['industries']
+        except Exception as e:
+            raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Company not found"
+        )
         semantic_query = {
             "bool": {
                 "must": {
@@ -130,8 +144,14 @@ class AsyncSearchService(AsyncSearcher):
                 "company_id.keyword": [company_id]
             }
         }
-        match_result = await super().search_index(match_query, fields=['full_description_embedding'])
-        full_description_embedding = match_result['hits']['hits'][0]['_source']['full_description_embedding']
+        try:
+            match_result = await super().search_index(match_query, fields=['full_description_embedding'])
+            full_description_embedding = match_result['hits']['hits'][0]['_source']['full_description_embedding']
+        except Exception as e:
+            raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Company not found"
+        )
         knn_query = {
             "field": 'full_description_embedding',
             "query_vector": full_description_embedding,
